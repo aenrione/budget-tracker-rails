@@ -8,11 +8,11 @@ module BudgetTrackerRails
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
-        resource '/public/*', headers: :any, methods: :get
-        resource '/api/*',
-          headers: :any,
-          expose: ['X-Page', 'X-PageTotal'],
-          methods: [:get, :post, :patch, :put, :delete, :options]
+        resource '*',
+                 headers: :any,
+                 expose: ['X-Page', 'X-PageTotal', 'client', 'uid',
+                          'access-token', 'token-type', 'expiry'],
+                 methods: [:get, :post, :delete, :put, :options]
       end
     end
 
