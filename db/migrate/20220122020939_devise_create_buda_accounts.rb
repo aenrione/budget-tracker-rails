@@ -7,6 +7,7 @@ class DeviseCreateBudaAccounts < ActiveRecord::Migration[6.0]
       t.string :encrypted_password, null: false, default: ""
       t.string :api_key,            null: false
       t.string :account_name,       null: false, default: "Buda"
+      t.decimal :balance,            null:false,  precision: 14, scale: 2, default: 0
       t.references :user,           null: false, foreign_key: true
 
       ## Recoverable

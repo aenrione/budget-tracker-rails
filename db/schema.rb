@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_22_030935) do
+ActiveRecord::Schema.define(version: 2022_01_23_025134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2022_01_22_030935) do
     t.string "encrypted_password", default: "", null: false
     t.string "api_key", null: false
     t.string "account_name", default: "Buda", null: false
+    t.decimal "balance", precision: 14, scale: 2, default: "0.0", null: false
     t.bigint "user_id", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -54,6 +55,7 @@ ActiveRecord::Schema.define(version: 2022_01_22_030935) do
     t.string "encrypted_password", default: "", null: false
     t.string "link", null: false
     t.string "account_name", default: "Fintoc", null: false
+    t.decimal "balance", precision: 14, scale: 2, default: "0.0", null: false
     t.bigint "user_id", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -68,6 +70,7 @@ ActiveRecord::Schema.define(version: 2022_01_22_030935) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "account_name", default: "Fintual", null: false
+    t.decimal "balance", precision: 14, scale: 2, default: "0.0", null: false
     t.bigint "user_id", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -87,9 +90,13 @@ ActiveRecord::Schema.define(version: 2022_01_22_030935) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name", null: false
-    t.decimal "balance", precision: 14, scale: 2
+    t.decimal "balance", precision: 14, scale: 2, default: "0.0"
+    t.string "provider", default: "email", null: false
+    t.string "uid", default: "", null: false
+    t.text "tokens"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
   create_table "versions", force: :cascade do |t|

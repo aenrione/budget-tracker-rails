@@ -7,6 +7,7 @@ class DeviseCreateFintocAccounts < ActiveRecord::Migration[6.0]
       t.string :encrypted_password, null: false, default: ""
       t.string :link,               null: false
       t.string :account_name,       null: false, default: "Fintoc"
+      t.decimal :balance,            null:false,  precision: 14, scale: 2, default: 0
       t.references :user,           null: false, foreign_key: true
 
       ## Recoverable

@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   devise_for :fintoc_accounts
   scope path: '/api' do
     api_version(module: 'Api::V1', path: { value: 'v1' }, defaults: { format: 'json' }) do
+      mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+        token_validations: 'api/v1/devise_token_auth/token_validations'
+      }
+      get '/user', to: 'users#show'
     end
   end
   mount Rswag::Api::Engine => '/api-docs'

@@ -5,6 +5,7 @@ gem 'bootsnap', require: false
 gem 'data_migrate'
 gem 'devise'
 gem 'devise-i18n'
+gem 'devise_token_auth'
 gem 'draper', '~> 3.1'
 gem 'enumerize'
 gem 'jbuilder', '~> 2.7'

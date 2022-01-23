@@ -3,6 +3,13 @@ class FintualAccount < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  belongs_to :user
+
+  def email_required?
+    false
+  end
+
+  def will_save_change_to_email?; end
 end
 
 # == Schema Information
@@ -13,6 +20,7 @@ end
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  account_name           :string           default("Fintual"), not null
+#  balance                :decimal(14, 2)   default(0.0), not null
 #  user_id                :bigint(8)        not null
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime

@@ -7,6 +7,7 @@ class DeviseCreateFintualAccounts < ActiveRecord::Migration[6.0]
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
       t.string :account_name,       null: false, default: "Fintual"
+      t.decimal :balance,            null:false,  precision: 14, scale: 2, default: 0
       t.references :user,           null: false, foreign_key: true
 
       ## Recoverable
