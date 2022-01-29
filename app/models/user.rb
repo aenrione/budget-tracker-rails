@@ -7,9 +7,9 @@ class User < ApplicationRecord
                   only: [:balance]
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_many :fintoc_accounts, dependent: :destroy
-  has_many :fintual_accounts, dependent: :destroy
-  has_many :buda_accounts, dependent: :destroy
+  has_one :fintoc_account, dependent: :destroy
+  has_one :fintual_account, dependent: :destroy
+  has_one :buda_account, dependent: :destroy
   monetize :balance, as: "amount"
 
   def confirmation_required?

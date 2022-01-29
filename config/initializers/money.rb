@@ -62,12 +62,12 @@ MoneyRails.configure do |config|
     disambiguate_symbol: "CLP$",
     alternate_symbols: [],
     subunit: "Peso",
-    subunit_to_unit: 10,
+    subunit_to_unit: 1,
     symbol_first: true,
     html_entity: "&#36;",
     decimal_mark: ".",
     thousands_separator: ".",
-    smallest_denomination: 10
+    smallest_denomination: 1
   }
   # Example:
   # config.register_currency = {
