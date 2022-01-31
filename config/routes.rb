@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         token_validations: 'api/v1/devise_token_auth/token_validations'
       }
       get '/user', to: 'users#show'
+      get '/transactions', to: 'transactions#index'
     end
   end
   mount Rswag::Api::Engine => '/api-docs'

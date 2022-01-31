@@ -2,15 +2,30 @@ class Api::V1::UserSerializer < ActiveModel::Serializer
   attributes :email, :name
 
   attribute :balances do
-    fintoc_balance = GetFintocAccountBalance.for(fintoc_account: object.fintoc_account)
-    fintual_balance = GetFintualAccountCurrentBalance.for(fintual_account: object.fintual_account)
-    buda_balance = GetBudaAccountBalance.for(buda_account: object.buda_account)
-    total = fintoc_balance + fintual_balance + buda_balance
-    {
-      total: total.format,
-      fintoc: fintoc_balance.format,
-      fintual: fintual_balance.format,
-      buda: buda_balance.format
-    }
+    temp = {}
+    if object.fintoc_account
+      fintoc_balance = object.fintoc_account.balance_amount
+      temp[:fintoc] = fintoc_balance.format
+    end
+    if object.fintual_account
+      fintual_balance = object.fintual_account.balance_amount
+      temp[:fintual] = fintual_balance.format
+    end
+    if object.buda_account
+      buda_balance = object.buda_account.balance_amount
+      temp[:buda] = buda_balance.format
+    end
+    temp[:total] = object.balance_amount.format
+    temp
+  end
+
+  attribute :income do
+    object.income_amount.format
+  end
+  attribute :expense do
+    object.expense_amount.format
+  end
+  attribute :investments_return do
+    object.investments_amount.format
   end
 end

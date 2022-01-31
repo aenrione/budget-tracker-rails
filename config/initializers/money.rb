@@ -69,6 +69,51 @@ MoneyRails.configure do |config|
     thousands_separator: ".",
     smallest_denomination: 1
   }
+  config.register_currency = {
+    priority: 6,
+    iso_code: "BTC",
+    name: "Bitcoin",
+    symbol: "Ƀ",
+    disambiguate_symbol: "BTC$",
+    alternate_symbols: ["$"],
+    subunit: "BTC",
+    subunit_to_unit: 100000000,
+    symbol_first: true,
+    html_entity: "&#36;",
+    decimal_mark: ".",
+    thousands_separator: ".",
+    smallest_denomination: 1e-10
+  }
+  config.register_currency = {
+    priority: 7,
+    iso_code: "ETH",
+    name: "Ethereum",
+    symbol: "$",
+    disambiguate_symbol: "ETH$",
+    alternate_symbols: ["$"],
+    subunit: "LTC",
+    subunit_to_unit: 100000000,
+    symbol_first: true,
+    html_entity: "&#36;",
+    decimal_mark: ".",
+    thousands_separator: ".",
+    smallest_denomination: 1e-10
+  }
+  config.register_currency = {
+    priority: 8,
+    iso_code: "LTC",
+    name: "Litecoin",
+    symbol: "$",
+    disambiguate_symbol: "LTC$",
+    alternate_symbols: ["$"],
+    subunit: "LTC",
+    subunit_to_unit: 100000000,
+    symbol_first: true,
+    html_entity: "&#36;",
+    decimal_mark: ".",
+    thousands_separator: ".",
+    smallest_denomination: 1e-10
+  }
   # Example:
   # config.register_currency = {
   #   priority:            1,

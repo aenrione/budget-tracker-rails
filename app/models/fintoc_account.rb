@@ -4,11 +4,17 @@ class FintocAccount < ApplicationRecord
   # devise :database_authenticatable, :registerable,
   #        :recoverable, :rememberable, :validatable
   belongs_to :user
+  has_many :fintoc_bank_accounts, dependent: :destroy
+  monetize :balance, as: "balance_amount"
   def email_required?
     false
   end
 
   def will_save_change_to_email?; end
+
+  def transactions
+    Transaction.where(fintoc_bank_account_id: fintoc_bank_accounts.pluck(:id).uniq)
+  end
 end
 
 # == Schema Information
@@ -26,6 +32,8 @@ end
 #  remember_created_at    :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  income                 :decimal(14, 2)   default(0.0)
+#  expense                :decimal(14, 2)   default(0.0)
 #
 # Indexes
 #

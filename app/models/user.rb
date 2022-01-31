@@ -10,7 +10,10 @@ class User < ApplicationRecord
   has_one :fintoc_account, dependent: :destroy
   has_one :fintual_account, dependent: :destroy
   has_one :buda_account, dependent: :destroy
-  monetize :balance, as: "amount"
+  monetize :balance, as: "balance_amount"
+  monetize :income, as: "income_amount"
+  monetize :expense, as: "expense_amount"
+  monetize :investments_return, as: "investments_amount"
 
   def confirmation_required?
     false
@@ -34,6 +37,9 @@ end
 #  provider               :string           default("email"), not null
 #  uid                    :string           default(""), not null
 #  tokens                 :text
+#  income                 :decimal(14, 2)   default(0.0)
+#  expense                :decimal(14, 2)   default(0.0)
+#  investments_return     :decimal(14, 2)   default(0.0)
 #
 # Indexes
 #

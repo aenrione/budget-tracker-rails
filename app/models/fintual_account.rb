@@ -4,6 +4,8 @@ class FintualAccount < ApplicationRecord
   # devise :database_authenticatable, :registerable,
   #        :recoverable, :rememberable, :validatable
   belongs_to :user
+  has_many :fintual_goals, dependent: :destroy
+  monetize :balance, as: "balance_amount"
 
   def email_required?
     false
@@ -27,6 +29,7 @@ end
 #  remember_created_at    :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  investments_return     :decimal(14, 2)   default(0.0)
 #
 # Indexes
 #
