@@ -5,6 +5,8 @@ class Api::V1::TransactionsController < Api::V1::BaseController
   def index
     @user = User.find_by(email: params[:email])
     @transactions = @user.fintoc_account.transactions
-    respond_with(@transactions)
+    @transactions = get_pagination_for_records(@transactions, params)
+    respond_with(@transactions, status: :ok, root: "transactions",
+                                meta: pagination_dict(@transactions))
   end
 end

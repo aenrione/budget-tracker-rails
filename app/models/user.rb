@@ -2,14 +2,16 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   include DeviseTokenAuth::Concerns::User
+  before_save -> { skip_confirmation! }
 
   has_paper_trail on: [:update],
-                  only: [:balance]
+                  only: [:balance, :income, :expense, :investments_return]
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_one :fintoc_account, dependent: :destroy
   has_one :fintual_account, dependent: :destroy
   has_one :buda_account, dependent: :destroy
+  has_many :transaction_categories, dependent: :destroy
   monetize :balance, as: "balance_amount"
   monetize :income, as: "income_amount"
   monetize :expense, as: "expense_amount"
@@ -30,6 +32,10 @@ end
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
 #  remember_created_at    :datetime
+#  confirmation_token     :string
+#  confirmed_at           :datetime
+#  confirmation_sent_at   :datetime
+#  unconfirmed_email      :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  name                   :string           not null
@@ -43,6 +49,7 @@ end
 #
 # Indexes
 #
+#  index_users_on_confirmation_token    (confirmation_token) UNIQUE
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE

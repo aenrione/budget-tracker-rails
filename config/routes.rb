@@ -8,7 +8,16 @@ Rails.application.routes.draw do
         token_validations: 'api/v1/devise_token_auth/token_validations'
       }
       get '/user', to: 'users#show'
+      get '/user/capabilities', to: 'users#get_capabilities'
+      get '/user/balance_to_chart', to: 'users#balance_to_chart'
       get '/transactions', to: 'transactions#index'
+
+      get '/categories', to: 'transaction_categories#index'
+      post '/categories', to: 'transaction_categories#create'
+
+      post '/fintoc_accounts', to: 'fintoc_accounts#create'
+      post '/buda_accounts', to: 'buda_accounts#create'
+      post '/fintual_accounts', to: 'fintual_accounts#create'
     end
   end
   mount Rswag::Api::Engine => '/api-docs'

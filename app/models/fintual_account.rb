@@ -6,6 +6,8 @@ class FintualAccount < ApplicationRecord
   belongs_to :user
   has_many :fintual_goals, dependent: :destroy
   monetize :balance, as: "balance_amount"
+  has_paper_trail on: [:update],
+                  only: [:balance, :investments_return]
 
   def email_required?
     false

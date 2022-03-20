@@ -96,10 +96,8 @@ GEM
     binding_of_caller (1.0.0)
       debug_inspector (>= 0.0.1)
     bootsnap (1.10.2)
-      http
-      json
       msgpack (~> 1.2)
-    buda (0.1.4.0.1)
+    buda (0.1.4.0.3)
       http
       json
     builder (3.2.4)
@@ -459,7 +457,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootsnap
-  buda
+  buda (~> 0.1.4.0.3)
   data_migrate
   devise
   devise-i18n
