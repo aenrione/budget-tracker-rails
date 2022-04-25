@@ -4,6 +4,8 @@ class Api::V1::TransactionsController < Api::V1::BaseController
 
   def index
     @user = User.find_by(email: params[:email])
+    return head(:bad_request) if @user.fintoc_account.blank?
+
     @transactions = @user.fintoc_account.transactions
     @transactions = get_pagination_for_records(@transactions, params)
     respond_with(@transactions, status: :ok, root: "transactions",
