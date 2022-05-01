@@ -108,6 +108,9 @@ GEM
     concurrent-ruby (1.1.9)
     connection_pool (2.2.5)
     crass (1.0.6)
+    cryptocompare (0.17.0)
+      faraday
+      json
     data_migrate (7.0.2)
       activerecord (>= 5.0)
       railties (>= 5.0)
@@ -150,6 +153,10 @@ GEM
       railties (>= 5.0.0)
     faker (2.19.0)
       i18n (>= 1.6, < 2)
+    faraday (2.2.0)
+      faraday-net_http (~> 2.0)
+      ruby2_keywords (>= 0.0.4)
+    faraday-net_http (2.0.2)
     ffi (1.15.5)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
@@ -394,6 +401,7 @@ GEM
     rubocop-rspec (2.7.0)
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
+    ruby2_keywords (0.0.5)
     rufus-scheduler (3.8.1)
       fugit (~> 1.1, >= 1.1.6)
     sass-rails (6.0.0)
@@ -482,6 +490,7 @@ DEPENDENCIES
   binding_of_caller
   bootsnap
   buda
+  cryptocompare
   data_migrate
   devise
   devise-i18n

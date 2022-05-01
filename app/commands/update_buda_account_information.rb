@@ -1,5 +1,6 @@
 class UpdateBudaAccountInformation < PowerTypes::Command.new(:buda_account)
   require 'buda'
+  require 'cryptocompare'
   def perform
     @client = Buda::Client.new(@buda_account.api_key, @buda_account.encrypted_password)
     @balances = @client.balances
@@ -35,7 +36,11 @@ class UpdateBudaAccountInformation < PowerTypes::Command.new(:buda_account)
     return 0 if cur.id == "CLP"
 
     real_balance = 0
-    ticker_amount = @client.get_market("#{cur.id}-clp").ticker.last_price
+    begin
+      ticker_amount = Cryptocompare::Price.find(cur.id, 'CLP')[cur.id]["CLP"]
+    rescue
+      ticker_amount = @client.get_market("#{cur.id}-clp").ticker.last_price
+    end
     real_balance += cur.available.to_f * ticker_amount.to_f
     real_balance
   end

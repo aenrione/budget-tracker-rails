@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'aws-sdk-s3', '~> 1.0'
 gem 'bootsnap', require: false
 gem 'buda'
+gem 'cryptocompare'
 gem 'data_migrate'
 gem 'devise'
 gem 'devise-i18n'

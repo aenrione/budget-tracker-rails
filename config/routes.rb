@@ -23,7 +23,9 @@ Rails.application.routes.draw do
   end
   mount Rswag::Api::Engine => '/api-docs'
   mount Rswag::Ui::Engine => '/api-docs'
-  mount Sidekiq::Web => '/jobs'
+  authenticate :user do
+    mount Sidekiq::Web => '/jobs'
+  end
   devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
