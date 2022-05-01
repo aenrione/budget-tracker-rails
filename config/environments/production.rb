@@ -9,6 +9,8 @@ Rails.application.configure do
   config.active_storage.service = :local
   config.log_level = :debug
   config.log_tags = [:request_id]
+  config.active_job.queue_adapter = :sidekiq
+
 
   config.action_mailer.perform_caching = false
   config.i18n.fallbacks = true
