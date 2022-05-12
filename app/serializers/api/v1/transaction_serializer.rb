@@ -5,4 +5,8 @@ class Api::V1::TransactionSerializer < ActiveModel::Serializer
   attribute :amount do
     object.transaction_amount.format
   end
+
+  attribute :category do
+    object.transaction_category.name if object.transaction_category.present?
+  end
 end

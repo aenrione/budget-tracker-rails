@@ -1,6 +1,5 @@
 class Api::V1::UsersController < Api::V1::BaseController
   before_action :authenticate_v1_user!
-  before_action :check_user_is_same_as_current_user
 
   def show
     respond_with(current_v1_user)
@@ -8,6 +7,11 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def balance_to_chart
     chart_data = UserBalanceToChart.for(user: current_v1_user)
+    respond_with(chart_data)
+  end
+
+  def transactions_by_category_to_chart
+    chart_data = TransactionsToChart.for(user: current_v1_user, month: params[:month], type: params[:type])
     respond_with(chart_data)
   end
 

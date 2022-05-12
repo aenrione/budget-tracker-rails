@@ -1,6 +1,5 @@
 class Api::V1::TransactionCategoriesController < Api::V1::BaseController
   before_action :authenticate_v1_user!
-  before_action :check_user_is_same_as_current_user
 
   def index
     @categories = current_v1_user.transaction_categories

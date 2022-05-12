@@ -11,7 +11,10 @@ Rails.application.routes.draw do
       get '/user', to: 'users#show'
       get '/user/capabilities', to: 'users#get_capabilities'
       get '/user/balance_to_chart', to: 'users#balance_to_chart'
-      get '/transactions', to: 'transactions#index'
+      get '/user/transactions_to_chart', to: 'users#transactions_by_category_to_chart'
+      resources :transactions, only: [:index, :show]
+      post '/transactions/:id/add_category/:category_id', to: 'transactions#add_to_category'
+      post '/transactions/:id/remove_category/:category_id', to: 'transactions#remove_category'
 
       get '/categories', to: 'transaction_categories#index'
       post '/categories', to: 'transaction_categories#create'

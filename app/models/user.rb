@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_one :fintoc_account, dependent: :destroy
   has_one :fintual_account, dependent: :destroy
   has_one :buda_account, dependent: :destroy
+  has_many :fintoc_bank_accounts, through: :fintoc_account, dependent: :destroy
   has_many :transaction_categories, dependent: :destroy
   monetize :balance, as: "balance_amount"
   monetize :income, as: "income_amount"
@@ -21,6 +22,10 @@ class User < ApplicationRecord
 
   def confirmation_required?
     false
+  end
+
+  def transactions
+    Transaction.where(fintoc_bank_account_id: fintoc_bank_accounts.pluck(:id).uniq)
   end
 end
 
