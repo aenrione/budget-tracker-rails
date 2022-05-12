@@ -7,7 +7,8 @@ class FintocAccount < ApplicationRecord
   has_many :fintoc_bank_accounts, dependent: :destroy
   monetize :balance, as: "balance_amount"
   has_paper_trail on: [:update],
-                  only: [:balance, :income, :expense]
+                  only: [:balance, :income, :expense],
+                  if: Proc.new { |t| t.updated_at >= t.previous_changes["updated_at"][-2] + 2.weeks}
   def email_required?
     false
   end

@@ -1,5 +1,6 @@
 class UpdateFintocAccountInformation < PowerTypes::Command.new(:fintoc_account)
-  require 'fintoc'
+  require "fintoc"
+
   def perform
     @balance = 0
     @income = 0
@@ -22,7 +23,8 @@ class UpdateFintocAccountInformation < PowerTypes::Command.new(:fintoc_account)
     @balance += acc.balance.current
 
     # Find or Create accounts
-    new_account = FintocBankAccount.find_or_create_by!(account_to_db(acc))
+    new_account = FintocBankAccount.find_by(account_id: acc.id).presence ||
+                  FintocBankAccount.create!(account_to_db(acc))
 
     # Sync Transactions
     sync_transactions_from_account(acc, new_account)
@@ -38,7 +40,10 @@ class UpdateFintocAccountInformation < PowerTypes::Command.new(:fintoc_account)
 
   def sync_transactions_from_account(acc, new_account)
     acc.get_movements.each do |mov|
-      Transaction.find_or_create_by!(transaction_to_db(mov, new_account.id))
+      trans = Transaction.find_by(transaction_id: mov.id)
+      next if trans.present?
+
+      Transaction.create!(transaction_to_db(mov, new_account.id))
     end
   end
 
@@ -52,7 +57,7 @@ class UpdateFintocAccountInformation < PowerTypes::Command.new(:fintoc_account)
       currency: acc.currency,
       number: acc.number,
       balance: acc.balance.current,
-      fintoc_account_id: @fintoc_account.id
+      fintoc_account_id: @fintoc_account.id,
     }
   end
 
@@ -66,7 +71,7 @@ class UpdateFintocAccountInformation < PowerTypes::Command.new(:fintoc_account)
       transaction_id: trans.id,
       post_date: trans.post_date,
       transaction_date: trans.transaction_date,
-      fintoc_bank_account_id: acc_id
+      fintoc_bank_account_id: acc_id,
     }.merge(get_holder_account(trans))
   end
 
@@ -85,7 +90,7 @@ class UpdateFintocAccountInformation < PowerTypes::Command.new(:fintoc_account)
 
     {
       holder_id: holder_id, holder_name: holder_name,
-      holder_institution: holder_institution
+      holder_institution: holder_institution,
     }
   end
 

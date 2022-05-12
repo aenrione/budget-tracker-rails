@@ -5,7 +5,9 @@ class User < ApplicationRecord
   before_save -> { skip_confirmation! }
 
   has_paper_trail on: [:update],
-                  only: [:balance, :income, :expense, :investments_return]
+                  only: [:balance, :income, :expense, :investments_return],
+                  if: Proc.new { |t| t.updated_at >= t.previous_changes["updated_at"][-2] + 2.weeks}
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_one :fintoc_account, dependent: :destroy

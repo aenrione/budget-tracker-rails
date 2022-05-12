@@ -8,7 +8,8 @@ class BudaAccount < ApplicationRecord
   monetize :balance, as: "balance_amount"
   monetize :investments_return, as: "return_amount"
   has_paper_trail on: [:update],
-                  only: [:balance, :investments_return]
+                  only: [:balance, :investments_return],
+                  if: Proc.new { |t| t.updated_at >= t.previous_changes["updated_at"][-2] + 2.weeks}
 
   def email_required?
     false

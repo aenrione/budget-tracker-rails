@@ -3,7 +3,8 @@ class FintocBankAccount < ApplicationRecord
   has_many :transactions, dependent: :destroy
   monetize :balance, as: "balance_amount"
   has_paper_trail on: [:update],
-                  only: [:balance]
+                  only: [:balance],
+                  if: Proc.new { |t| t.updated_at >= t.previous_changes["updated_at"][-2] + 2.weeks}
 end
 
 # == Schema Information
