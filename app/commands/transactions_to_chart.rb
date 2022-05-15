@@ -1,5 +1,7 @@
 class TransactionsToChart < PowerTypes::Command.new(:user, month: nil, year: nil, type: nil)
   def perform
+    return if @user.fintoc_account.blank?
+
     @month = if @month.present? || !@month.to_i.zero?
                @month.to_i
              else
@@ -16,7 +18,8 @@ class TransactionsToChart < PowerTypes::Command.new(:user, month: nil, year: nil
   end
 
   def get_transaction_data
-    result = []
+    result = [{ name: "Sin Categoria",
+                amount: calculate_amount_for_trans(no_category_trans) }]
     @user.transaction_categories.each do |cat|
       trans = get_usefull_transactions(cat)
       next if trans.count.zero?
@@ -38,6 +41,13 @@ class TransactionsToChart < PowerTypes::Command.new(:user, month: nil, year: nil
       @amount += t.amount
     end
     amount.to_i
+  end
+
+  def no_category_trans
+    Transaction.where(fintoc_bank_account: @user.fintoc_account.fintoc_bank_accounts,
+                      transaction_date: Date.new(@year, @month,
+                                                 1)..Date.new(@year, @month, -1),
+                      transaction_category: nil)
   end
 
   def get_usefull_transactions(category)

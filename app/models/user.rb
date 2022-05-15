@@ -6,7 +6,9 @@ class User < ApplicationRecord
 
   has_paper_trail on: [:update],
                   only: [:balance, :income, :expense, :investments_return],
-                  if: Proc.new { |t| t.updated_at >= t.previous_changes["updated_at"][-2] + 2.weeks}
+                  if: Proc.new { |t|
+                        t.versions.length.zero? ? true : t.updated_at >= t.versions.last.created_at + 1.week
+                      }
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
