@@ -69,3 +69,5 @@ end
 group :production, :development, :test do
   gem 'tzinfo-data'
 end
+
+gem "dotenv", "~> 2.7", groups: [:development, :production, :test]

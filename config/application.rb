@@ -2,6 +2,8 @@ require_relative 'boot'
 
 require 'rails/all'
 Bundler.require(*Rails.groups)
+Dotenv.load
+
 
 module BudgetTrackerRails
   class Application < Rails::Application
