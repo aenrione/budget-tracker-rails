@@ -11,7 +11,6 @@ Rails.application.configure do
   config.log_tags = [:request_id]
   config.active_job.queue_adapter = :sidekiq
 
-
   config.action_mailer.perform_caching = false
   config.i18n.fallbacks = true
   config.active_support.deprecation = :notify

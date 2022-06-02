@@ -1,0 +1,338 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API V1",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/v1/transactions": {
+      "get": {
+        "summary": "list transactions",
+        "tags": [
+          "transactions"
+        ],
+        "security": [
+          {
+            "client": [
+
+            ],
+            "access_token": [
+
+            ],
+            "uid": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      }
+    },
+    "/api/v1/transactions/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "show transaction",
+        "tags": [
+          "transactions"
+        ],
+        "security": [
+          {
+            "client": [
+
+            ],
+            "access_token": [
+
+            ],
+            "uid": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      }
+    },
+    "/api/v1/transactions/{id}/add_category/{category_id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "category_id",
+          "in": "path",
+          "description": "category_id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "summary": "add_to_category transaction",
+        "tags": [
+          "transactions"
+        ],
+        "security": [
+          {
+            "client": [
+
+            ],
+            "access_token": [
+
+            ],
+            "uid": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      }
+    },
+    "/api/v1/transactions/{id}/remove_category/{category_id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "category_id",
+          "in": "path",
+          "description": "category_id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "summary": "remove_category transaction",
+        "tags": [
+          "transactions"
+        ],
+        "security": [
+          {
+            "client": [
+
+            ],
+            "access_token": [
+
+            ],
+            "uid": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/sign_in": {
+      "post": {
+        "summary": "login user",
+        "tags": [
+          "auth"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "password"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      }
+    },
+    "/api/v1/user": {
+      "get": {
+        "summary": "show user",
+        "tags": [
+          "user_info"
+        ],
+        "security": [
+          {
+            "client": [
+
+            ],
+            "access_token": [
+
+            ],
+            "uid": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      }
+    },
+    "/api/v1/user/capabilities": {
+      "get": {
+        "summary": "get_capabilities user",
+        "tags": [
+          "user_info"
+        ],
+        "security": [
+          {
+            "client": [
+
+            ],
+            "access_token": [
+
+            ],
+            "uid": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      }
+    },
+    "/api/v1/user/balance_to_chart": {
+      "get": {
+        "summary": "balance_to_chart user",
+        "tags": [
+          "user_info"
+        ],
+        "security": [
+          {
+            "client": [
+
+            ],
+            "access_token": [
+
+            ],
+            "uid": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      }
+    },
+    "/api/v1/user/transactions_to_chart": {
+      "get": {
+        "summary": "transactions_by_category_to_chart user",
+        "tags": [
+          "user_info"
+        ],
+        "security": [
+          {
+            "client": [
+
+            ],
+            "access_token": [
+
+            ],
+            "uid": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      }
+    }
+  },
+  "tags": {
+    "auth": [
+
+    ],
+    "user_info": [
+
+    ],
+    "transactions": [
+
+    ]
+  },
+  "components": {
+    "securitySchemes": {
+      "access_token": {
+        "type": "apiKey",
+        "name": "access-token",
+        "in": "header"
+      },
+      "client": {
+        "type": "apiKey",
+        "name": "client",
+        "in": "header"
+      },
+      "uid": {
+        "type": "apiKey",
+        "name": "uid",
+        "in": "header"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://{defaultHost}",
+      "variables": {
+        "defaultHost": {
+          "default": "localhost:3000"
+        }
+      }
+    }
+  ]
+}
