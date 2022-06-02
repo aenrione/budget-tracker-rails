@@ -11,8 +11,18 @@ class FintocAccount < ApplicationRecord
                   if: Proc.new { |t|
                         t.versions.length.zero? ? true : t.updated_at >= t.versions.last.created_at + 1.week
                       }
+  validate :validate_api, on: :create
+
   def email_required?
     false
+  end
+
+  def validate_api
+    ValidateFintocAccount.for(fintoc_account: self)
+  rescue Fintoc::Errors::InvalidApiKeyError
+    errors.add(:encrypted_password, "Invalida")
+  rescue Fintoc::Errors::InvalidLinkTokenError
+    errors.add(:link, "Invalido")
   end
 
   def will_save_change_to_email?; end

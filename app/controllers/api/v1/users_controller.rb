@@ -11,7 +11,8 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def transactions_by_category_to_chart
-    chart_data = TransactionsToChart.for(user: current_v1_user, month: params[:month], type: params[:type])
+    chart_data = TransactionsToChart.for(user: current_v1_user, month: params[:month],
+                                         type: params[:type])
     respond_with(chart_data)
   end
 

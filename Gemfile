@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'activeadmin'
 gem 'aws-sdk-s3', '~> 1.0'
 gem 'bootsnap', require: false
 gem 'buda'
@@ -57,7 +58,6 @@ group :development, :test do
   gem 'guard-rspec', require: false
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'rspec-nc', require: false
   gem 'rspec-rails'
   gem 'rswag-specs'
   gem 'rubocop', '~> 1.9'
