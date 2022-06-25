@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       get '/user/capabilities', to: 'users#get_capabilities'
       get '/user/balance_to_chart', to: 'users#balance_to_chart'
       get '/user/transactions_to_chart', to: 'users#transactions_by_category_to_chart'
+      post '/user/set_quota', to: 'users#set_quota'
       resources :transactions, only: [:index, :show]
       post '/transactions/:id/add_category/:category_id', to: 'transactions#add_to_category'
       post '/transactions/:id/remove_category/:category_id', to: 'transactions#remove_category'
@@ -24,6 +25,14 @@ Rails.application.routes.draw do
       post '/fintoc_accounts', to: 'fintoc_accounts#create'
       post '/buda_accounts', to: 'buda_accounts#create'
       post '/fintual_accounts', to: 'fintual_accounts#create'
+
+      get '/to_buy_lists', to: 'to_buy_lists#index'
+      get '/to_buy_lists/:id', to: 'to_buy_lists#show'
+      delete '/to_buy_lists/:id', to: 'to_buy_lists#delete'
+
+      post '/to_buy_lists', to: 'to_buy_lists#create'
+      post '/to_buy_lists/:id/item', to: 'to_buy_items#create'
+      delete '/to_buy_lists/:id/item/:item_id', to: 'to_buy_items#delete'
     end
   end
   mount Rswag::Api::Engine => '/api-docs'

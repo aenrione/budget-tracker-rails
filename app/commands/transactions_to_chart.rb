@@ -35,6 +35,7 @@ class TransactionsToChart < PowerTypes::Command.new(:user, month: nil, year: nil
   def calculate_amount_for_trans(trans)
     amount = 0
     trans.each do |t|
+      next if t.ignore
       next if t.amount >= 0 && @type == 'expense' || t.amount <= 0 && @type == 'income'
 
       amount += t.amount

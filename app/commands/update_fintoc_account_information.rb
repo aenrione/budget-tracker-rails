@@ -101,6 +101,7 @@ class UpdateFintocAccountInformation < PowerTypes::Command.new(:fintoc_account)
       "transaction_date >= ?", Time.zone.today.at_beginning_of_month
     )
     transactions.each do |t|
+      next if t.ignore
       if t.amount >= 0
         income += t.amount
       else

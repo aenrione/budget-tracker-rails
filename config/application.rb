@@ -4,6 +4,7 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 Dotenv.load
 
+require 'active_model_serializers'
 
 module BudgetTrackerRails
   class Application < Rails::Application

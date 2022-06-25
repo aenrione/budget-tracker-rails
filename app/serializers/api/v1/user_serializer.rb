@@ -22,6 +22,12 @@ class Api::V1::UserSerializer < ActiveModel::Serializer
   attribute :income do
     object.income_amount.format
   end
+  attribute :quota do
+    object.quota_amount.format
+  end
+  attribute :remaining do
+    object.remaining.format
+  end
   attribute :expense do
     object.expense_amount.format
   end

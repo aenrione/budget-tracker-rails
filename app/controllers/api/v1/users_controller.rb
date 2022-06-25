@@ -19,4 +19,12 @@ class Api::V1::UsersController < Api::V1::BaseController
   def get_capabilities
     respond_with(GetUserCapabilities.for(user: current_v1_user))
   end
+
+  def set_quota
+    return head(:bad_request) if params[:quota].blank?
+     
+    current_v1_user.quota = params[:quota]
+    current_v1_user.save!
+    respond_with(current_v1_user, status: :ok)
+  end
 end

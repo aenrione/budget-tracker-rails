@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_01_220932) do
+ActiveRecord::Schema.define(version: 2022_06_25_124829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -154,6 +154,25 @@ ActiveRecord::Schema.define(version: 2022_06_01_220932) do
     t.index ["fintual_account_id"], name: "index_fintual_goals_on_fintual_account_id"
   end
 
+  create_table "to_buy_items", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.decimal "price", precision: 14, scale: 2
+    t.bigint "to_buy_list_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["to_buy_list_id"], name: "index_to_buy_items_on_to_buy_list_id"
+  end
+
+  create_table "to_buy_lists", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_to_buy_lists_on_user_id"
+  end
+
   create_table "transaction_categories", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -179,6 +198,7 @@ ActiveRecord::Schema.define(version: 2022_06_01_220932) do
     t.bigint "transaction_category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "ignore", default: false
     t.index ["fintoc_bank_account_id"], name: "index_transactions_on_fintoc_bank_account_id"
     t.index ["transaction_category_id"], name: "index_transactions_on_transaction_category_id"
   end
@@ -203,6 +223,7 @@ ActiveRecord::Schema.define(version: 2022_06_01_220932) do
     t.decimal "income", precision: 14, scale: 2, default: "0.0"
     t.decimal "expense", precision: 14, scale: 2, default: "0.0"
     t.decimal "investments_return", precision: 14, scale: 2, default: "0.0"
+    t.decimal "quota", precision: 14, scale: 2, default: "0.0"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -226,6 +247,8 @@ ActiveRecord::Schema.define(version: 2022_06_01_220932) do
   add_foreign_key "fintoc_bank_accounts", "fintoc_accounts"
   add_foreign_key "fintual_accounts", "users"
   add_foreign_key "fintual_goals", "fintual_accounts"
+  add_foreign_key "to_buy_items", "to_buy_lists"
+  add_foreign_key "to_buy_lists", "users"
   add_foreign_key "transactions", "fintoc_bank_accounts"
   add_foreign_key "transactions", "transaction_categories"
 end

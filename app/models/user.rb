@@ -17,13 +17,19 @@ class User < ApplicationRecord
   has_one :buda_account, dependent: :destroy
   has_many :fintoc_bank_accounts, through: :fintoc_account, dependent: :destroy
   has_many :transaction_categories, dependent: :destroy
+  has_many :to_buy_lists, dependent: :destroy
   monetize :balance, as: "balance_amount"
   monetize :income, as: "income_amount"
   monetize :expense, as: "expense_amount"
   monetize :investments_return, as: "investments_amount"
+  monetize :quota, as: "quota_amount"
 
   def confirmation_required?
     false
+  end
+
+  def remaining
+    (quota_amount - expense_amount.abs)
   end
 
   def transactions
@@ -55,6 +61,7 @@ end
 #  income                 :decimal(14, 2)   default(0.0)
 #  expense                :decimal(14, 2)   default(0.0)
 #  investments_return     :decimal(14, 2)   default(0.0)
+#  quota                  :decimal(14, 2)   default(0.0)
 #
 # Indexes
 #
