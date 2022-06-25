@@ -1,3 +1,3 @@
 class Api::V1::TransactionCategorySerializer < ActiveModel::Serializer
-  attributes :description, :name
+  attributes :description, :name, :id
 end
