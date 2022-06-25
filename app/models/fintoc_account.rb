@@ -6,6 +6,8 @@ class FintocAccount < ApplicationRecord
   belongs_to :user
   has_many :fintoc_bank_accounts, dependent: :destroy
   monetize :balance, as: "balance_amount"
+  monetize :income, as: "income_amount"
+  monetize :expense, as: "expense_amount"
   has_paper_trail on: [:update],
                   only: [:balance, :income, :expense],
                   if: Proc.new { |t|

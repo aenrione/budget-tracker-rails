@@ -19,6 +19,14 @@ class Api::V1::TransactionCategoriesController < Api::V1::BaseController
     end
   end
 
+  def delete
+    @category = TransactionCategory.find_by(id: params[:id])
+    return head(:bad_request) if @category.blank?
+    @category.destroy!
+    respond_with(true, status: :ok)
+
+  end
+
   private
 
   def category_params

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
       get '/categories', to: 'transaction_categories#index'
       post '/categories', to: 'transaction_categories#create'
+      delete '/categories/:id', to: 'transaction_categories#delete'
 
       post '/fintoc_accounts', to: 'fintoc_accounts#create'
       post '/buda_accounts', to: 'buda_accounts#create'

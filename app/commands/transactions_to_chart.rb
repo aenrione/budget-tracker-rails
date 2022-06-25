@@ -18,7 +18,7 @@ class TransactionsToChart < PowerTypes::Command.new(:user, month: nil, year: nil
   end
 
   def get_transaction_data
-    result = [{ name: "Sin Categoria",
+    result = [{ name: "N.C",
                 amount: calculate_amount_for_trans(no_category_trans) }]
     @user.transaction_categories.each do |cat|
       trans = get_usefull_transactions(cat)
