@@ -1,24 +1,24 @@
 class UpdateUserInformationJob < ApplicationJob
   require 'sidekiq-scheduler'
   def perform
-    ActiveRecord::Base.transaction do
-      User.all.each { |user| update_user(user)}
-    end
+    User.all.each { |user| update_user(user)}
   end
 
   def update_user(user)
-    if user.buda_account.present?
-      UpdateBudaAccountInformation.for(buda_account: user.buda_account)
+    ActiveRecord::Base.transaction do
+      if user.buda_account.present?
+        UpdateBudaAccountInformation.for(buda_account: user.buda_account)
+      end
+      if user.fintoc_account.present?
+        UpdateFintocAccountInformation.for(fintoc_account: user.fintoc_account)
+      end
+      if user.fintual_account.present?
+        UpdateFintualAccountInformation.for(fintual_account: user.fintual_account)
+      end
+      update_user_balance(user)
+      update_user_indicators(user)
+      user.save!
     end
-    if user.fintoc_account.present?
-      UpdateFintocAccountInformation.for(fintoc_account: user.fintoc_account)
-    end
-    if user.fintual_account.present?
-      UpdateFintualAccountInformation.for(fintual_account: user.fintual_account)
-    end
-    update_user_balance(user)
-    update_user_indicators(user)
-    user.save!
   end
 
   def update_user_balance(user)
