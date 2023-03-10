@@ -13,8 +13,8 @@ bundle check || bundle install
 # Install javascript dependencies
 bin/yarn install
 
-# Set up required services
-docker-compose up -d
+# # Set up required services
+# docker-compose up -d
 
 # Set up database
 bin/rails db:setup
@@ -23,4 +23,4 @@ bin/rails db:setup
 mkdir -p .git/safe
 
 # Setup heroku remotes
-bin/setup_heroku
+# bin/setup_heroku

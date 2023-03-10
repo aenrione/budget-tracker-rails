@@ -1,7 +1,7 @@
-class UpdateUserInformationJob < ApplicationJob
-  require 'sidekiq-scheduler'
-  def perform
-    User.all.each { |user| update_user(user) }
+class UpdateOneUserJob < ApplicationJob
+  def perform(user_email)
+    @user = User.find_by(email: user_email)
+    update_user(@user)
   end
 
   def update_user(user)
@@ -50,3 +50,4 @@ class UpdateUserInformationJob < ApplicationJob
     end
   end
 end
+

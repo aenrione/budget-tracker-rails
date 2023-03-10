@@ -15,6 +15,10 @@ class Api::V1::FintualAccountsController < Api::V1::BaseController
     end
   end
 
+  def delete
+    respond_with(current_v1_user.fintual_account.destroy!, status: :ok)
+  end
+
   private
 
   def acc_params

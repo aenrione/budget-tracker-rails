@@ -20,6 +20,11 @@ class Api::V1::UsersController < Api::V1::BaseController
     respond_with(GetUserCapabilities.for(user: current_v1_user))
   end
 
+  def update_everything
+    UpdateOneUserJob.perform_async(current_v1_user.email)
+    respond_with(current_v1_user, status: :ok)
+  end
+
   def set_quota
     return head(:bad_request) if params[:quota].blank?
      

@@ -15,6 +15,10 @@ class Api::V1::FintocAccountsController < Api::V1::BaseController
     end
   end
 
+  def delete
+    respond_with(current_v1_user.fintoc_account.destroy!, status: :ok)
+  end
+
   private
 
   def acc_params
