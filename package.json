@@ -2,6 +2,7 @@
   "name": "budget_tracker_rails",
   "private": true,
   "dependencies": {
+    "@activeadmin/activeadmin": "^2.13.1",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
@@ -26,7 +27,7 @@
     "postcss": "^7",
     "stylelint": "^14.2.0",
     "vue-jest": "^3.0.7",
-    "webpack-dev-server": "^4.7.3"
+    "webpack-dev-server": "^4.11.1"
   },
   "engines": {
     "node": "12.x"

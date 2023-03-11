@@ -1,6 +1,7 @@
 class Api::V1::TransactionCategoriesController < Api::V1::BaseController
   before_action :authenticate_v1_user!
 
+
   def index
     @categories = current_v1_user.transaction_categories
     @categories = get_pagination_for_records(@categories, params)
@@ -22,8 +23,7 @@ class Api::V1::TransactionCategoriesController < Api::V1::BaseController
   def delete
     @category = TransactionCategory.find_by(id: params[:id])
     return head(:bad_request) if @category.blank?
-    @category.destroy!
-    respond_with(true, status: :ok)
+    respond_with(@category.destroy!, status: :ok)
 
   end
 

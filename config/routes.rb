@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       post '/user/set_quota', to: 'users#set_quota'
       resources :transactions, only: [:index, :show]
       post '/transactions/:id/add_category/:category_id', to: 'transactions#add_to_category'
-      post '/transactions/:id/remove_category/:category_id', to: 'transactions#remove_category'
+      post '/transactions/:id/remove_category', to: 'transactions#remove_category'
 
       get '/categories', to: 'transaction_categories#index'
       post '/categories', to: 'transaction_categories#create'

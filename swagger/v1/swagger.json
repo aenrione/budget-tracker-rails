@@ -327,10 +327,10 @@
   },
   "servers": [
     {
-      "url": "http://{defaultHost}",
+      "url": "{defaultHost}",
       "variables": {
         "defaultHost": {
-          "default": "localhost:3000"
+          "default": "https://budgetapi.aenrione.xyz"
         }
       }
     }

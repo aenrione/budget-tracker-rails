@@ -7,6 +7,16 @@ class Api::V1::TransactionSerializer < ActiveModel::Serializer
   end
 
   attribute :category do
-    object.transaction_category.name if object.transaction_category.present?
+   if object.transaction_category.present?
+      {
+        name: object.transaction_category.name,
+        id: object.transaction_category.id
+      }
+    else
+      {
+        name: "No category",
+        id: -1
+      }
+   end
   end
 end

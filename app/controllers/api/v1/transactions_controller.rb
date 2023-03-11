@@ -15,7 +15,8 @@ class Api::V1::TransactionsController < Api::V1::BaseController
     @transaction = current_v1_user.transactions.find_by(id: params[:id]) 
     return head(:bad_request) if @transaction.blank?
 
-    respond_with(@transaction, status: :ok)
+    respond_with(@transaction, status: :ok, serializer: Api::V1::TransactionSerializer )
+                              # serializer: Api::V1::TransactionCategorySerializer,
   end
 
   def add_to_category
@@ -29,10 +30,8 @@ class Api::V1::TransactionsController < Api::V1::BaseController
   end
 
   def remove_category
-    category = current_v1_user.transaction_categories.find_by(id: params[:category_id])
     @transaction = current_v1_user.transactions.find_by(id: params[:id]) 
-    return head(:bad_request) if @transaction.blank? || category.blank?
-    return head(:bad_request) if @transaction.transaction_category != category
+    return head(:bad_request) if @transaction.blank? || @transaction.transaction_category.blank?
      
     @transaction.transaction_category = nil
     @transaction.save!

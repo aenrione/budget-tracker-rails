@@ -2,7 +2,9 @@ require_relative 'boot'
 
 require 'rails/all'
 Bundler.require(*Rails.groups)
-Dotenv.load
+if['development', 'test'].include? ENV['RAILS_ENV']
+  Dotenv::Railtie.load
+end
 
 require 'active_model_serializers'
 
