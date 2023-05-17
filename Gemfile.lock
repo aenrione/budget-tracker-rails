@@ -532,6 +532,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   listen
   money-rails (~> 1.13)
+  nokogiri (~> 1.13)
   paper_trail
   pg
   power-types
